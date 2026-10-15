@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import "./App.css";
 import button from "./App.module.css";
+import Dashboard from "./pages/Dashboard";
 
 // ada 3 cara styling
 // 1. inline styling
@@ -24,6 +25,8 @@ function App() {
         <h1 style={styles.paragraph}>Belajar React TS</h1>
       </div>
       <button className={`${button.button}`}>Click me!</button>
+      <Dashboard />
+      <Dashboard />
     </div>
   );
 }
