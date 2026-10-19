@@ -13,7 +13,7 @@ function App() {
     <div id="parent">
       <div>
         {/* 1. inline style */}
-        <h1 style={{ background: "red", color: "yellow" }}>Belajar React TS</h1>
+        <h1 className="bg-red-600 text-yellow-800">Belajar React TS</h1>
       </div>
       <div>
         <h1 style={headerStyle}>Belajar React TS</h1>
