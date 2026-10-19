@@ -29,9 +29,17 @@ const todoList: Todo[] = [
   },
 ];
 
+function add (a: number, b: number) {
+  return a + b;
+}
+ add(1, 5);
+
+
 function TodoList() {
   const [value, setValue] = useState("");
   const [todos, setTodos] = useState<Todo[]>(todoList);
+  const [isEditing, setIsEditng] = useState(false);
+  const [editId, setEditId] = useState<number | null>(null);
 
   // function untuk melakukan updating todolist
   function handleAddTodo() {
@@ -54,7 +62,11 @@ function TodoList() {
 
   function handleEditTodo(id: number) {
     const todo = todos.find((item) => item.id == id);
-    if (todo !== undefined) setValue(todo.description);
+    if (todo !== undefined) {
+      setValue(todo.description);
+      setIsEditng(true);
+      setEditId(id);
+    } 
   }
 
   return (
@@ -93,9 +105,9 @@ function TodoList() {
         })}
       </ul>
       <button
-        onClick={handleAddTodo}
+        onClick={isEditing ? handleAddTodo : () => handleEditTodo(editId!)}
         className="bg-amber-900 text-amber-100 text-2xl w-fit">
-        Add
+        {isEditing ? "Save" : "Add"}
       </button>
     </div>
   );
