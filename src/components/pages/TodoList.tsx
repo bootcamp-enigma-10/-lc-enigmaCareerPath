@@ -35,7 +35,12 @@ function TodoList() {
 
   // function untuk melakukan updating todolist
   function handleAddTodo() {
-    setTodos((todoSebelumnya) => [...todoSebelumnya, { id: Date.now(), description: value, isCompleted: false }]);
+    setTodos((todoSebelumnya) => [
+      ...todoSebelumnya,
+      { id: Date.now(), description: value, isCompleted: false },
+    ]);
+
+    setValue("");
   }
 
   return (
@@ -45,7 +50,12 @@ function TodoList() {
 
       {/* user input */}
       <div>
-        <input type="text" placeholder="description" value={value} onChange={(e) => setValue(e.target.value)} />
+        <input
+          type="text"
+          placeholder="description"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
       </div>
 
       {/* bagian tampilan todolist */}
@@ -58,7 +68,10 @@ function TodoList() {
           );
         })}
       </ul>
-      <button onClick={handleAddTodo} className="bg-amber-900 text-amber-100 text-2xl">
+      <button
+        onClick={handleAddTodo}
+        className="bg-amber-900 text-amber-100 text-2xl"
+      >
         Add
       </button>
     </div>
