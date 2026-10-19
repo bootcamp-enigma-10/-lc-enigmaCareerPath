@@ -29,11 +29,10 @@ const todoList: Todo[] = [
   },
 ];
 
-function add (a: number, b: number) {
+function add(a: number, b: number) {
   return a + b;
 }
- add(1, 5);
-
+add(1, 5);
 
 function TodoList() {
   const [value, setValue] = useState("");
@@ -43,12 +42,23 @@ function TodoList() {
 
   // function untuk melakukan updating todolist
   function handleAddTodo() {
-    setTodos((todoSebelumnya) => [
-      ...todoSebelumnya,
-      { id: Date.now(), description: value, isCompleted: false },
-    ]);
+    
+    if(isEditing){
+      setTodos((todoSebelumnya) =>
+      todoSebelumnya.map((todo) =>
+        todo.id === editId ? { ...todo, description: value } : todo,
+      ),
+    );
+    }else{
+      setTodos((prev) => [
+        ...prev, {id: Date.now(), description: value, isCompleted: false}
+      ])
+      setIsEditng(false)
+    }
 
     setValue("");
+    setEditId(null);
+    
   }
 
   function handleDeleteTodo(id: number) {
@@ -66,7 +76,7 @@ function TodoList() {
       setValue(todo.description);
       setIsEditng(true);
       setEditId(id);
-    } 
+    }
   }
 
   return (
@@ -92,12 +102,14 @@ function TodoList() {
               {val.id} - {val.description} - {val.isCompleted ? "done" : "todo"}
               <button
                 className="p-2 bg-red-600"
-                onClick={() => handleDeleteTodo(val.id)}>
+                onClick={() => handleDeleteTodo(val.id)}
+              >
                 Delete
               </button>
               <button
                 className="p-2 bg-yellow-600"
-                onClick={() => handleEditTodo(val.id)}>
+                onClick={() => handleEditTodo(val.id)}
+              >
                 Edit
               </button>
             </li>
@@ -105,8 +117,9 @@ function TodoList() {
         })}
       </ul>
       <button
-        onClick={isEditing ? handleAddTodo : () => handleEditTodo(editId!)}
-        className="bg-amber-900 text-amber-100 text-2xl w-fit">
+        onClick={ handleAddTodo }
+        className="bg-amber-900 text-amber-100 text-2xl w-fit"
+      >
         {isEditing ? "Save" : "Add"}
       </button>
     </div>
