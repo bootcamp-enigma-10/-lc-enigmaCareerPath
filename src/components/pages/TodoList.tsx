@@ -43,6 +43,15 @@ function TodoList() {
     setValue("");
   }
 
+  function handleDeleteTodo(id: number) {
+    // const deletedTodo: Todo | undefined = todos.find((todo) => todo.id === id);
+    // if (!deletedTodo) {
+    //   return;
+    // }
+
+    setTodos(todos.filter((todo) => todo.id !== id));
+  }
+
   return (
     <div className="flex flex-col">
       {/* title */}
@@ -64,6 +73,12 @@ function TodoList() {
           return (
             <li key={val.id}>
               {val.id} - {val.description} - {val.isCompleted ? "done" : "todo"}
+              <button
+                className="p-2 bg-red-600"
+                onClick={() => handleDeleteTodo(val.id)}
+              >
+                Delete
+              </button>
             </li>
           );
         })}
