@@ -13,6 +13,10 @@ function Counter() {
     setCounter(counter - 1);
   }
 
+  function reset() {
+    setCounter(0);
+  }
+
   return (
     <div className="bg-red-950 text-4xl p-10 flex-col gap-4 rounded-md mx-auto mt-4">
       <div className="bg-lime-300 rounded-md text-center py-8 mb-4">
@@ -25,6 +29,12 @@ function Counter() {
         </button>
         <button className="bg-amber-100 p-4 rounded-md" onClick={decrease}>
           -
+        </button>
+        <button
+          className="bg-amber-100 p-4 rounded-md col-span-2"
+          onClick={reset}
+        >
+          RESET
         </button>
       </div>
     </div>
