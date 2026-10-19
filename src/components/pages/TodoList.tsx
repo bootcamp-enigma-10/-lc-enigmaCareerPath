@@ -52,6 +52,11 @@ function TodoList() {
     setTodos(todos.filter((todo) => todo.id !== id));
   }
 
+  function handleEditTodo(id: number) {
+    const todo = todos.find((item) => item.id == id);
+    if (todo !== undefined) setValue(todo.description);
+  }
+
   return (
     <div className="flex flex-col">
       {/* title */}
@@ -75,9 +80,13 @@ function TodoList() {
               {val.id} - {val.description} - {val.isCompleted ? "done" : "todo"}
               <button
                 className="p-2 bg-red-600"
-                onClick={() => handleDeleteTodo(val.id)}
-              >
+                onClick={() => handleDeleteTodo(val.id)}>
                 Delete
+              </button>
+              <button
+                className="p-2 bg-yellow-600"
+                onClick={() => handleEditTodo(val.id)}>
+                Edit
               </button>
             </li>
           );
@@ -85,8 +94,7 @@ function TodoList() {
       </ul>
       <button
         onClick={handleAddTodo}
-        className="bg-amber-900 text-amber-100 text-2xl"
-      >
+        className="bg-amber-900 text-amber-100 text-2xl w-fit">
         Add
       </button>
     </div>
