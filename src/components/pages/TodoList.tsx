@@ -35,7 +35,7 @@ function TodoList() {
 
   // function untuk melakukan updating todolist
   function handleAddTodo() {
-    setTodos((prev) => [...prev, { id: todoList.length + 1, description: value, isCompleted: false }]);
+    setTodos((todoSebelumnya) => [...todoSebelumnya, { id: Date.now(), description: value, isCompleted: false }]);
   }
 
   return (
