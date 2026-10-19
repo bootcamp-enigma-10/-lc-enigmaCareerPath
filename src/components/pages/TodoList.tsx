@@ -1,82 +1,44 @@
 import { useState } from "react";
-
-interface Todo {
-  id: number;
-  description: string;
-  isCompleted: boolean;
-}
-
-const todoList: Todo[] = [
-  {
-    id: 1,
-    description: "buka mata",
-    isCompleted: false,
-  },
-  {
-    id: 2,
-    description: "bangun pagi",
-    isCompleted: false,
-  },
-  {
-    id: 3,
-    description: "gosok gigi",
-    isCompleted: false,
-  },
-  {
-    id: 4,
-    description: "tidur",
-    isCompleted: false,
-  },
-];
-
-function add(a: number, b: number) {
-  return a + b;
-}
-add(1, 5);
+import { todoList } from "../../data/todos";
+import type { Todo } from "../../types/todo.type";
+import ToDoListItem from "../todoList/todoListItem";
 
 function TodoList() {
-  const [value, setValue] = useState("");
+  const [description, setDescription] = useState("");
   const [todos, setTodos] = useState<Todo[]>(todoList);
-  const [isEditing, setIsEditng] = useState(false);
   const [editId, setEditId] = useState<number | null>(null);
+
+  const isEditing = editId != null;
 
   // function untuk melakukan updating todolist
   function handleAddTodo() {
-    
-    if(isEditing){
-      setTodos((todoSebelumnya) =>
+    setTodos((prev) => [
+      ...prev,
+      { id: Date.now(), description: description, isCompleted: false },
+    ]);
+
+    setDescription("");
+    setEditId(null);
+  }
+
+  function handleSaveTodo() {
+    setTodos((todoSebelumnya) =>
       todoSebelumnya.map((todo) =>
-        todo.id === editId ? { ...todo, description: value } : todo,
+        todo.id === editId ? { ...todo, description: description } : todo,
       ),
     );
-    }else{
-      setTodos((prev) => [
-        ...prev, {id: Date.now(), description: value, isCompleted: false}
-      ])
-      setIsEditng(false)
-    }
 
-    setValue("");
+    setDescription("");
     setEditId(null);
-    
   }
 
   function handleDeleteTodo(id: number) {
-    // const deletedTodo: Todo | undefined = todos.find((todo) => todo.id === id);
-    // if (!deletedTodo) {
-    //   return;
-    // }
-
     setTodos(todos.filter((todo) => todo.id !== id));
   }
 
-  function handleEditTodo(id: number) {
-    const todo = todos.find((item) => item.id == id);
-    if (todo !== undefined) {
-      setValue(todo.description);
-      setIsEditng(true);
-      setEditId(id);
-    }
+  function handleEditTodo(todo: Todo) {
+    setDescription(todo.description);
+    setEditId(todo.id);
   }
 
   return (
@@ -89,35 +51,24 @@ function TodoList() {
         <input
           type="text"
           placeholder="description"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </div>
 
       {/* bagian tampilan todolist */}
       <ul>
-        {todos.map((val) => {
-          return (
-            <li key={val.id}>
-              {val.id} - {val.description} - {val.isCompleted ? "done" : "todo"}
-              <button
-                className="p-2 bg-red-600"
-                onClick={() => handleDeleteTodo(val.id)}
-              >
-                Delete
-              </button>
-              <button
-                className="p-2 bg-yellow-600"
-                onClick={() => handleEditTodo(val.id)}
-              >
-                Edit
-              </button>
-            </li>
-          );
-        })}
+        {todos.map((val) => (
+          <ToDoListItem
+            key={val.id}
+            todo={val}
+            handleDeleteTodo={handleDeleteTodo}
+            handleEditTodo={handleEditTodo}
+          />
+        ))}
       </ul>
       <button
-        onClick={ handleAddTodo }
+        onClick={isEditing ? handleSaveTodo : handleAddTodo}
         className="bg-amber-900 text-amber-100 text-2xl w-fit"
       >
         {isEditing ? "Save" : "Add"}
