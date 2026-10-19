@@ -7,7 +7,6 @@ import Counter from "./components/pages/Counter";
 // 3. external styling (css biasa dan module css)
 
 function App() {
-  console.log("app.tsx has been rendered");
   return (
     <div id="parent">
       <Counter />
