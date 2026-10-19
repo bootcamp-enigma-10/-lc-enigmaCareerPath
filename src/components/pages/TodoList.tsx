@@ -1,10 +1,12 @@
+import { useState } from "react";
+
 interface Todo {
   id: number;
   description: string;
   isCompleted: boolean;
 }
 
-const todos: Todo[] = [
+const todoList: Todo[] = [
   {
     id: 1,
     description: "buka mata",
@@ -28,18 +30,37 @@ const todos: Todo[] = [
 ];
 
 function TodoList() {
+  const [value, setValue] = useState("");
+  const [todos, setTodos] = useState<Todo[]>(todoList);
+
+  // function untuk melakukan updating todolist
+  function handleAddTodo() {
+    setTodos((prev) => [...prev, { id: todoList.length + 1, description: value, isCompleted: false }]);
+  }
+
   return (
     <div className="flex flex-col">
+      {/* title */}
       <h1>Todo List Batch 10</h1>
-      {todos.map((val) => {
-        return (
-          <div className="flex gap-2">
-            <h1>{val.id}</h1>
-            <h2>{val.description}</h2>
-            <h3>{val.isCompleted ? "true" : "false"}</h3>
-          </div>
-        );
-      })}
+
+      {/* user input */}
+      <div>
+        <input type="text" placeholder="description" value={value} onChange={(e) => setValue(e.target.value)} />
+      </div>
+
+      {/* bagian tampilan todolist */}
+      <ul>
+        {todos.map((val) => {
+          return (
+            <li key={val.id}>
+              {val.id} - {val.description} - {val.isCompleted ? "done" : "todo"}
+            </li>
+          );
+        })}
+      </ul>
+      <button onClick={handleAddTodo} className="bg-amber-900 text-amber-100 text-2xl">
+        Add
+      </button>
     </div>
   );
 }
