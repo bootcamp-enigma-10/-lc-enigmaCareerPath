@@ -1,5 +1,6 @@
 import "./App.css";
 import Counter from "./components/pages/Counter";
+import TodoList from "./components/pages/TodoList";
 
 // ada 3 cara styling
 // 1. inline styling
@@ -8,8 +9,9 @@ import Counter from "./components/pages/Counter";
 
 function App() {
   return (
-    <div id="parent">
+    <div className="flex flex-col">
       <Counter />
+      <TodoList />
     </div>
   );
 }

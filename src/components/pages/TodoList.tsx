@@ -4,7 +4,7 @@ interface Todo {
   isCompleted: boolean;
 }
 
-let todos: Todo[] = [
+const todos: Todo[] = [
   {
     id: 1,
     description: "buka mata",
@@ -29,9 +29,17 @@ let todos: Todo[] = [
 
 function TodoList() {
   return (
-    <div>
+    <div className="flex flex-col">
       <h1>Todo List Batch 10</h1>
-      <div></div>
+      {todos.map((val) => {
+        return (
+          <div className="flex gap-2">
+            <h1>{val.id}</h1>
+            <h2>{val.description}</h2>
+            <h3>{val.isCompleted ? "true" : "false"}</h3>
+          </div>
+        );
+      })}
     </div>
   );
 }
