@@ -1,5 +1,5 @@
 import "./App.css";
-import Login from "./components/pages/Login";
+import Test from "./components/pages/Test";
 
 // ada 3 cara styling
 // 1. inline styling
@@ -9,7 +9,7 @@ import Login from "./components/pages/Login";
 function App() {
   return (
     <div className="flex flex-col">
-      <Login />
+      <Test />
     </div>
   );
 }
