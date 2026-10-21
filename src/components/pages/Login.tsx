@@ -13,7 +13,7 @@ function Login() {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log("data : " + data);
+    console.log(`berhasil submit email : ${data.email} dan password : ${data.password}`);
   };
 
   return (
@@ -27,8 +27,9 @@ function Login() {
             pattern: { value: /^\S+@\S+\.\S+$/, message: "the email format is wrong" },
           })}
           placeholder="email"
+          className="border p-2 w-full"
         />
-        {errors.email && <p>{errors.email?.message}</p>}
+        {errors.email && <p className="text-white text-sm">{errors.email?.message}</p>}
       </div>
       {/* password */}
       <div>
@@ -39,8 +40,9 @@ function Login() {
             minLength: { value: 8, message: "the minimum password length is 8" },
           })}
           placeholder="password"
+          className="border p-2 w-full"
         />
-        {errors.password && <p>{errors.password?.message}</p>}
+        {errors.password && <p className="text-white text-sm">{errors.password?.message}</p>}
       </div>
 
       <button type="submit" className="bg-blue-600 text-yellow-300">
