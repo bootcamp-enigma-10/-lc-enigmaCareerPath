@@ -1,7 +1,5 @@
 import "./App.css";
-import Counter from "./components/pages/Counter";
-import TodoList from "./components/pages/TodoList";
-import Timer from "./components/pages/Timer";
+import Login from "./components/pages/Login";
 
 // ada 3 cara styling
 // 1. inline styling
@@ -11,9 +9,7 @@ import Timer from "./components/pages/Timer";
 function App() {
   return (
     <div className="flex flex-col">
-      <Timer />
-      <Counter />
-      <TodoList />
+      <Login />
     </div>
   );
 }
