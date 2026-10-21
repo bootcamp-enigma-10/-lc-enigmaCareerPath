@@ -1,16 +1,22 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { z } from "zod";
 
-interface FormValues {
-  email: string;
-  password: string;
-}
+const loginSchema = z.object({
+  email: z.email("the email format is wrong"),
+  password: z.string().min(8, "the minimum password length is 8"),
+});
+
+type FormValues = z.infer<typeof loginSchema>;
 
 function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({
+    resolver: zodResolver(loginSchema),
+  });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(`berhasil submit email : ${data.email} dan password : ${data.password}`);
@@ -20,28 +26,12 @@ function Login() {
     <form onSubmit={handleSubmit(onSubmit)} className="bg-amber-700 flex-col w-3xl m-auto">
       {/* email */}
       <div>
-        <input
-          type="text"
-          {...register("email", {
-            required: "the email field is required",
-            pattern: { value: /^\S+@\S+\.\S+$/, message: "the email format is wrong" },
-          })}
-          placeholder="email"
-          className="border p-2 w-full"
-        />
+        <input type="text" {...register("email")} placeholder="email" className="border p-2 w-full" />
         {errors.email && <p className="text-white text-sm">{errors.email?.message}</p>}
       </div>
       {/* password */}
       <div>
-        <input
-          type="text"
-          {...register("password", {
-            required: "the password field is required",
-            minLength: { value: 8, message: "the minimum password length is 8" },
-          })}
-          placeholder="password"
-          className="border p-2 w-full"
-        />
+        <input type="text" {...register("password")} placeholder="password" className="border p-2 w-full" />
         {errors.password && <p className="text-white text-sm">{errors.password?.message}</p>}
       </div>
 
