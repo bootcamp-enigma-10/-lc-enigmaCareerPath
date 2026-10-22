@@ -59,15 +59,15 @@ function CareerGrid() {
     <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-[#4B5B98]">
             <span>CAREER HUB</span>
-            <span className="h-1 w-1 rounded-full bg-slate-300"></span>
+            <span className="h-1 w-1 rounded-full bg-[#757683]"></span>
             <span>Talent Placement Portal</span>
           </div>
-          <h1 className="mt-1 text-3xl font-bold text-[#0B1B4D]">
+          <h1 className="mt-1 text-3xl font-bold text-primary">
             Master Career List
           </h1>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-[#444651]">
             Browse, manage, and connect students to verified career
             opportunities
           </p>

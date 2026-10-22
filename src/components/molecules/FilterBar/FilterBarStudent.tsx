@@ -51,17 +51,17 @@ function FilterBarStudent({
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Search by name, student ID, or major..."
-          className="w-full rounded-lg bg-slate-50 px-10 py-2.5 text-sm text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-[#233D90]/20"
+          className="w-full rounded-lg bg-[#ECEEF0] px-10 py-2.5 text-sm text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-[#233D90]/20"
         />
       </div>
 
       <div className="flex w-full flex-wrap gap-4 md:w-auto md:flex-nowrap">
         <div className="relative w-full md:w-auto">
-          <Building2 className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <Building2 className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#191C1E]" />
           <select
             value={department}
             onChange={(e) => onDepartmentChange(e.target.value)}
-            className="appearance-none w-full rounded-lg bg-slate-50 py-2.5 pl-10 pr-10 text-sm text-slate-700 outline-none cursor-pointer focus:bg-white focus:ring-2 focus:ring-[#233D90]/20"
+            className="appearance-none w-full rounded-lg bg-[#ECEEF0] py-2.5 pl-10 pr-10 text-sm text-[#191C1E] outline-none cursor-pointer focus:bg-white focus:ring-2 focus:ring-[#233D90]/20"
           >
             <option value="All Departments / Majors">
               All Departments / Majors
@@ -72,15 +72,15 @@ function FilterBarStudent({
               </option>
             ))}
           </select>
-          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#191C1E]" />
         </div>
 
         <div className="relative w-full md:w-auto">
-          <GraduationCap className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <GraduationCap className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#191C1E]" />
           <select
             value={year}
             onChange={(e) => onYearChange(e.target.value)}
-            className="appearance-none w-full rounded-lg bg-slate-50 py-2.5 pl-10 pr-10 text-sm text-slate-700 outline-none cursor-pointer focus:bg-white focus:ring-2 focus:ring-[#233D90]/20"
+            className="appearance-none w-full rounded-lg bg-[#ECEEF0] py-2.5 pl-10 pr-10 text-sm text-slate-700 outline-none cursor-pointer focus:bg-white focus:ring-2 focus:ring-[#233D90]/20"
           >
             <option value="All Years">All Years</option>
             {availableYears.map((yr) => (

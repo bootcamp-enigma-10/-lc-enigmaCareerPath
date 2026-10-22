@@ -57,7 +57,7 @@ function FilterBarCareer({
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Search by job title, company, or tech stack..."
-            className="w-full rounded-lg bg-slate-50 px-10 py-2 text-sm text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-[#233D90]/20"
+            className="w-full rounded-lg bg-[#ECEEF0] px-10 py-2 text-sm text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-[#233D90]/20"
           />
         </div>
 
@@ -66,7 +66,7 @@ function FilterBarCareer({
             <select
               value={location}
               onChange={(e) => onLocationChange(e.target.value)}
-              className="w-full cursor-pointer appearance-none rounded-lg bg-slate-50 py-2 pl-4 pr-10 text-sm font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-[#233D90]/20"
+              className="w-full cursor-pointer appearance-none rounded-lg bg-[#ECEEF0] py-2 pl-4 pr-10 text-sm font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-[#233D90]/20"
             >
               <option value="All Locations">All Locations</option>
               {availableLocations.map((loc) => (
@@ -79,7 +79,7 @@ function FilterBarCareer({
           </div>
 
           <div className="relative min-w-35">
-            <select className="w-full cursor-pointer appearance-none rounded-lg bg-slate-50 py-2 pl-4 pr-10 text-sm font-medium text-slate-700 outline-none">
+            <select className="w-full cursor-pointer appearance-none rounded-lg bg-[#ECEEF0] py-2 pl-4 pr-10 text-sm font-medium text-slate-700 outline-none">
               <option>Sort: Newest</option>
             </select>
             <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -100,7 +100,7 @@ function FilterBarCareer({
             className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-colors ${
               activeTab === tab.label
                 ? "bg-[#0B1B4D] text-white"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                : "bg-[#ECEEF0] text-primary hover:bg-primary/25"
             }`}
           >
             {tab.label} ({tab.count})

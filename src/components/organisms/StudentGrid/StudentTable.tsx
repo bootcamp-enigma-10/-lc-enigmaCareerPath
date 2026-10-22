@@ -30,9 +30,9 @@ function StudentTable({
     const colors = [
       "bg-[#233D90] text-white",
       "bg-[#A6B4F4] text-[#233D90]",
-      "bg-slate-200 text-slate-700",
+      "bg-[#E6E8EA] text-[#002479]",
       "bg-[#F4D2C3] text-[#8C3D1C]",
-      "bg-slate-200 text-slate-700",
+      "bg-[#DCE1FF] text-[#191C1E]",
     ];
     return colors[index % colors.length];
   };
@@ -52,7 +52,7 @@ function StudentTable({
 
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm text-slate-600">
-          <thead className="bg-slate-50/50 text-xs font-semibold uppercase tracking-wider text-[#4F64A6]">
+          <thead className="bg-[#ECEEF0] text-xs font-semibold uppercase tracking-wider text-[#4F64A6]">
             <tr>
               <th className="px-6 py-4 font-medium">ID</th>
               <th className="px-6 py-4 font-medium">Student Name</th>
@@ -114,10 +114,10 @@ function StudentTable({
                     </td>
                     <td className="px-6 py-4">
                       <div
-                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold ${isTopGpa ? "bg-[#F4D2C3] text-[#8C3D1C]" : "bg-slate-100 text-[#0B1B4D]"}`}
+                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold ${isTopGpa ? "bg-[#F4D2C3] text-secondary" : "bg-slate-100 text-[#0B1B4D]"}`}
                       >
                         {isTopGpa ? (
-                          <Star className="h-3 w-3 fill-[#8C3D1C]" />
+                          <Star className="h-3 w-3 fill-secondary" />
                         ) : (
                           <span className="h-1.5 w-1.5 rounded-full bg-[#233D90]"></span>
                         )}
@@ -134,7 +134,7 @@ function StudentTable({
                       <div className="flex items-center justify-center gap-3 text-slate-400">
                         <button
                           onClick={() => onViewDetail(student)}
-                          className="transition-colors hover:text-[#233D90]"
+                          className="transition-colors hover:text-primary"
                         >
                           <Eye className="h-4 w-4" />
                         </button>

@@ -61,7 +61,7 @@ function CareerCard({ career }: CareerCardProps) {
     if (titleLower.includes("mobile")) {
       return {
         icon: <Smartphone className="h-5 w-5" />,
-        bg: "bg-orange-50 text-orange-600",
+        bg: "bg-[#FFDBCD] text-[#772B00]",
       };
     }
     return {
@@ -84,15 +84,15 @@ function CareerCard({ career }: CareerCardProps) {
           <Badge variant={getTypeVariant(career.type)}>{career.type}</Badge>
         </div>
 
-        <h4 className="text-lg font-bold text-[#0B1B4D]">{career.title}</h4>
-        <div className="mt-1.5 flex items-center gap-1.5 text-xs font-medium text-slate-500">
+        <h4 className="text-lg font-bold text-[#002479]">{career.title}</h4>
+        <div className="mt-1.5 flex items-center gap-1.5 text-xs font-medium text-[#444651]">
           <Building2 className="h-3.5 w-3.5" />
-          <span className="text-slate-700">{career.company}</span>
+          <span className="text-primary">{career.company}</span>
           <span className="h-1 w-1 rounded-full bg-slate-300"></span>
           <span>{career.companyType}</span>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-3 rounded-lg bg-slate-50 p-3 text-xs font-medium text-slate-600 sm:text-sm">
+        <div className="mt-4 flex flex-wrap items-center gap-3 rounded-lg bg-[#ECEEF0] p-3 text-xs font-medium text-slate-600 sm:text-sm">
           <div className="flex items-center gap-1.5">
             <MapPin className="h-4 w-4 text-red-500" />
             <span>
@@ -105,7 +105,7 @@ function CareerCard({ career }: CareerCardProps) {
           <span className="h-1 w-1 rounded-full bg-slate-300"></span>
           <div className="flex items-center gap-1.5">
             <DollarSign className="h-4 w-4 text-[#8C3D1C]" />
-            <span className="text-slate-700">{career.stipend}</span>
+            <span className="text-[#002479]">{career.stipend}</span>
           </div>
         </div>
 
@@ -117,7 +117,7 @@ function CareerCard({ career }: CareerCardProps) {
           {career.techStack.map((tech, idx) => (
             <span
               key={idx}
-              className="rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-500"
+              className="rounded-md bg-[#ECEEF0] px-2 py-1 text-xs font-medium text-primary"
             >
               {tech}
             </span>

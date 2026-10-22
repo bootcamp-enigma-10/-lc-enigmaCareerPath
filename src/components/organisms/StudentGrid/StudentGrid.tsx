@@ -109,15 +109,15 @@ function StudentGrid() {
     <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
-            <span>Academic Directory</span>
-            <span className="h-1 w-1 rounded-full bg-slate-300"></span>
+          <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-[#4B5B98]">
+            <span>ACADEMIC DIRECTORY</span>
+            <span className="h-1 w-1 rounded-full bg-[#757683]"></span>
             <span>Batch 2024 / 2025</span>
           </div>
-          <h1 className="mt-1 text-3xl font-bold text-[#0B1B4D]">
+          <h1 className="mt-1 text-3xl font-bold text-primary">
             Master Student List
           </h1>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-[#444651]">
             Manage, track and view all registered students across departments.
             Review cumulative GPAs, academic standing, and cohort assignments.
           </p>
@@ -127,7 +127,10 @@ function StudentGrid() {
             <Download className="h-4 w-4" />
             Export CSV
           </button>
-          <Button className="flex items-center gap-2 bg-primary px-4 py-2 text-sm hover:bg-primary/85">
+          <Button
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center gap-2 bg-primary px-4 py-2 text-sm hover:bg-primary/85"
+          >
             <Plus className="h-4 w-4" />
             Post New Career
           </Button>
