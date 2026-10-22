@@ -6,6 +6,7 @@ import {
   Download,
   TrendingUp,
   BadgeCheck,
+  Plus,
 } from "lucide-react";
 import StatCardStudent from "../../molecules/StatCard/StatCardStudent";
 import Badge from "../../atoms/Badge/Badge";
@@ -105,7 +106,7 @@ function StudentGrid() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6">
+    <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
@@ -126,11 +127,9 @@ function StudentGrid() {
             <Download className="h-4 w-4" />
             Export CSV
           </button>
-          <Button
-            onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 bg-[#233D90] px-4 py-2 text-sm"
-          >
-            + Add New Student
+          <Button className="flex items-center gap-2 bg-primary px-4 py-2 text-sm hover:bg-primary/85">
+            <Plus className="h-4 w-4" />
+            Post New Career
           </Button>
         </div>
       </div>
