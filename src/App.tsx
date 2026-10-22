@@ -1,6 +1,5 @@
 import { useState, type ReactNode } from "react";
 import AppShell from "./components/templates/AppShell/AppShell";
-import AuthLayout from "./components/templates/AuthLayout/AuthLayout";
 import CareersPage from "./pages/CareersPage/CareersPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -8,15 +7,24 @@ import StudentsPage from "./pages/StudentsPage/StudentsPage";
 import type { Menu } from "./types/menu.type";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem("isLoggedIn") === "true";
+  });
+
   const [activeMenu, setActiveMenu] = useState<Menu>("dashboard");
 
+  const handleLoginSuccess = () => {
+    localStorage.setItem("isLoggedIn", "true");
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+  };
+
   if (!isLoggedIn) {
-    return (
-      <AuthLayout>
-        <LoginPage onLogin={() => setIsLoggedIn(true)} />
-      </AuthLayout>
-    );
+    return <LoginPage onLoginSuccess={handleLoginSuccess} />;
   }
 
   const pageByMenu: Record<Menu, ReactNode> = {
@@ -26,7 +34,11 @@ function App() {
   };
 
   return (
-    <AppShell activeMenu={activeMenu} onMenuChange={setActiveMenu}>
+    <AppShell
+      activeMenu={activeMenu}
+      onMenuChange={setActiveMenu}
+      onLogout={handleLogout}
+    >
       {pageByMenu[activeMenu]}
     </AppShell>
   );
