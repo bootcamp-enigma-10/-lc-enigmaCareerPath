@@ -12,25 +12,38 @@ import Badge from "../../atoms/Badge/Badge";
 import Button from "../../atoms/Button/Button";
 import FilterBarStudent from "../../molecules/FilterBar/FilterBarStudent";
 import StudentTable from "./StudentTable";
+import StudentFormModal from "../StudentActionModals/StudentFormModal";
+import StudentDetailModal from "../StudentActionModals/StudentDetailModal";
 import { STUDENTS } from "../../../data/students";
+import type { Student } from "../../../types/student.type";
+import StudentEditModal from "../StudentActionModals/StudentEditModal";
+import StudentDeleteModal from "../StudentActionModals/StudentDeleteModal";
 
 function StudentGrid() {
+  const [studentsData, setStudentsData] = useState<Student[]>(STUDENTS);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [targetStudent, setTargetStudent] = useState<Student | null>(null);
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [department, setDepartment] = useState("All Departments / Majors");
   const [year, setYear] = useState("All Years");
 
   const availableDepartments = useMemo(() => {
-    const majors = new Set(STUDENTS.map((student) => student.major));
+    const majors = new Set(studentsData.map((student) => student.major));
     return Array.from(majors);
-  }, []);
+  }, [studentsData]);
 
   const availableYears = useMemo(() => {
-    const years = new Set(STUDENTS.map((student) => student.academicYear));
+    const years = new Set(studentsData.map((student) => student.academicYear));
     return Array.from(years).sort();
-  }, []);
+  }, [studentsData]);
 
   const filteredStudents = useMemo(() => {
-    return STUDENTS.filter((student) => {
+    return studentsData.filter((student) => {
       const matchSearch =
         student.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         student.id.toLowerCase().includes(searchQuery.toLowerCase());
@@ -41,7 +54,7 @@ function StudentGrid() {
 
       return matchSearch && matchDept && matchYear;
     });
-  }, [searchQuery, department, year]);
+  }, [searchQuery, department, year, studentsData]);
 
   const averageGpa = useMemo(() => {
     if (filteredStudents.length === 0) return "0.00";
@@ -59,6 +72,37 @@ function StudentGrid() {
     const topStudents = filteredStudents.filter((student) => student.gpa > 3.5);
     return Math.round((topStudents.length / filteredStudents.length) * 100);
   }, [filteredStudents]);
+
+  const handleAddStudent = (newStudent: Student) => {
+    setStudentsData([newStudent, ...studentsData]);
+  };
+
+  const handleViewDetail = (student: Student) => {
+    setSelectedStudent(student);
+    setIsDetailModalOpen(true);
+  };
+
+  const handleOpenEdit = (student: Student) => {
+    setTargetStudent(student);
+    setIsEditModalOpen(true);
+  };
+
+  const handleSaveEdit = (updatedStudent: Student) => {
+    setStudentsData(
+      studentsData.map((s) =>
+        s.id === updatedStudent.id ? updatedStudent : s,
+      ),
+    );
+  };
+
+  const handleOpenDelete = (student: Student) => {
+    setTargetStudent(student);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = (id: string) => {
+    setStudentsData(studentsData.filter((s) => s.id !== id));
+  };
 
   return (
     <div className="mx-auto max-w-6xl space-y-6">
@@ -82,7 +126,10 @@ function StudentGrid() {
             <Download className="h-4 w-4" />
             Export CSV
           </button>
-          <Button className="flex items-center gap-2 bg-[#233D90] px-4 py-2 text-sm">
+          <Button
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center gap-2 bg-[#233D90] px-4 py-2 text-sm"
+          >
             + Add New Student
           </Button>
         </div>
@@ -128,7 +175,7 @@ function StudentGrid() {
           icon={<Filter className="h-6 w-6" />}
           footerLeft={
             <span className="text-slate-500">
-              Filtered from {STUDENTS.length} total directory
+              Filtered from {studentsData.length} total directory
             </span>
           }
           footerRight={
@@ -159,7 +206,45 @@ function StudentGrid() {
 
       <StudentTable
         students={filteredStudents}
-        totalStudents={STUDENTS.length}
+        totalStudents={studentsData.length}
+        onViewDetail={handleViewDetail}
+        onEdit={handleOpenEdit}
+        onDelete={handleOpenDelete}
+      />
+
+      <StudentFormModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAddStudent={handleAddStudent}
+      />
+
+      <StudentDetailModal
+        isOpen={isDetailModalOpen}
+        onClose={() => {
+          setIsDetailModalOpen(false);
+          setSelectedStudent(null);
+        }}
+        student={selectedStudent}
+      />
+
+      <StudentEditModal
+        isOpen={isEditModalOpen}
+        onClose={() => {
+          setIsEditModalOpen(false);
+          setTargetStudent(null);
+        }}
+        onSaveEdit={handleSaveEdit}
+        student={targetStudent}
+      />
+
+      <StudentDeleteModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setTargetStudent(null);
+        }}
+        onConfirmDelete={handleConfirmDelete}
+        student={targetStudent}
       />
     </div>
   );

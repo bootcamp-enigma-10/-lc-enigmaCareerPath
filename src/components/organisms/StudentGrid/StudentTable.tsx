@@ -5,9 +5,18 @@ import type { Student } from "../../../types/student.type";
 interface StudentTableProps {
   students: Student[];
   totalStudents: number;
+  onViewDetail: (student: Student) => void;
+  onEdit: (student: Student) => void;
+  onDelete: (student: Student) => void;
 }
 
-function StudentTable({ students }: StudentTableProps) {
+function StudentTable({
+  students,
+  totalStudents,
+  onViewDetail,
+  onEdit,
+  onDelete,
+}: StudentTableProps) {
   const getInitial = (name: string) => {
     return name
       .split(" ")
@@ -123,13 +132,22 @@ function StudentTable({ students }: StudentTableProps) {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-center gap-3 text-slate-400">
-                        <button className="transition-colors hover:text-[#233D90]">
+                        <button
+                          onClick={() => onViewDetail(student)}
+                          className="transition-colors hover:text-[#233D90]"
+                        >
                           <Eye className="h-4 w-4" />
                         </button>
-                        <button className="transition-colors hover:text-orange-500">
+                        <button
+                          onClick={() => onEdit(student)}
+                          className="transition-colors hover:text-orange-500"
+                        >
                           <Pencil className="h-4 w-4" />
                         </button>
-                        <button className="transition-colors hover:text-red-600">
+                        <button
+                          onClick={() => onDelete(student)}
+                          className="transition-colors hover:text-red-600"
+                        >
                           <Trash className="h-4 w-4" />
                         </button>
                       </div>
@@ -142,12 +160,19 @@ function StudentTable({ students }: StudentTableProps) {
         </table>
       </div>
 
-      {/* Hard UI: Pagination */}
       <div className="flex items-center justify-between border-t border-slate-100 p-5">
         <p className="text-xs text-slate-500">
-          Showing <span className="font-semibold text-[#0B1B4D]">1</span> to{" "}
-          <span className="font-semibold text-[#0B1B4D]">5</span> of{" "}
-          <span className="font-semibold text-[#0B1B4D]">156</span> entries
+          Showing{" "}
+          <span className="font-semibold text-[#0B1B4D]">
+            {students.length > 0 ? 1 : 0}
+          </span>{" "}
+          to{" "}
+          <span className="font-semibold text-[#0B1B4D]">
+            {students.length}
+          </span>{" "}
+          of{" "}
+          <span className="font-semibold text-[#0B1B4D]">{totalStudents}</span>{" "}
+          entries
         </p>
         <div className="flex items-center gap-1 text-sm">
           <button className="flex h-8 w-8 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100">
