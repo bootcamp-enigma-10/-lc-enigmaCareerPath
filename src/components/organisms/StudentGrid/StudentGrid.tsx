@@ -1,5 +1,12 @@
 import { useState, useMemo } from "react";
-import { Users, Award, Filter, Download } from "lucide-react";
+import {
+  Users,
+  Award,
+  Filter,
+  Download,
+  TrendingUp,
+  BadgeCheck,
+} from "lucide-react";
 import StatCardStudent from "../../molecules/StatCard/StatCardStudent";
 import Badge from "../../atoms/Badge/Badge";
 import Button from "../../atoms/Button/Button";
@@ -11,6 +18,16 @@ function StudentGrid() {
   const [searchQuery, setSearchQuery] = useState("");
   const [department, setDepartment] = useState("All Departments / Majors");
   const [year, setYear] = useState("All Years");
+
+  const availableDepartments = useMemo(() => {
+    const majors = new Set(STUDENTS.map((student) => student.major));
+    return Array.from(majors);
+  }, []);
+
+  const availableYears = useMemo(() => {
+    const years = new Set(STUDENTS.map((student) => student.academicYear));
+    return Array.from(years).sort();
+  }, []);
 
   const filteredStudents = useMemo(() => {
     return STUDENTS.filter((student) => {
@@ -30,6 +47,17 @@ function StudentGrid() {
     if (filteredStudents.length === 0) return "0.00";
     const total = filteredStudents.reduce((acc, curr) => acc + curr.gpa, 0);
     return (total / filteredStudents.length).toFixed(2);
+  }, [filteredStudents]);
+
+  const totalFaculties = useMemo(() => {
+    const majors = new Set(filteredStudents.map((student) => student.major));
+    return majors.size;
+  }, [filteredStudents]);
+
+  const topTierPercentage = useMemo(() => {
+    if (filteredStudents.length === 0) return 0;
+    const topStudents = filteredStudents.filter((student) => student.gpa > 3.5);
+    return Math.round((topStudents.length / filteredStudents.length) * 100);
   }, [filteredStudents]);
 
   return (
@@ -67,12 +95,15 @@ function StudentGrid() {
           badge={<Badge variant="primary">Active Cohort</Badge>}
           icon={<Users className="h-6 w-6" />}
           footerLeft={
-            <>
-              ↗ <span className="font-bold text-[#0B1B4D]">+12%</span> from
-              previous semester
-            </>
+            <div className="flex items-center gap-1.5">
+              <TrendingUp className="h-3.5 w-3.5 text-[#0B1B4D]" />
+              <span>
+                <span className="font-bold text-[#0B1B4D]">+12%</span> from
+                previous semester
+              </span>
+            </div>
           }
-          footerRight="4 Faculties"
+          footerRight={`${totalFaculties} Faculties`}
         />
         <StatCardStudent
           title="Average GPA"
@@ -80,9 +111,13 @@ function StudentGrid() {
           badge={<Badge variant="warning">Top Tier Standing</Badge>}
           icon={<Award className="h-6 w-6 text-[#8C3D1C]" />}
           footerLeft={
-            <span className="text-[#8C3D1C]">
-              ✓ <span className="font-bold">89%</span> above 3.50 target
-            </span>
+            <div className="flex items-center gap-1.5 text-[#8C3D1C]">
+              <BadgeCheck className="h-3.5 w-3.5" />
+              <span>
+                <span className="font-bold">{topTierPercentage}%</span> above
+                3.50 target
+              </span>
+            </div>
           }
           footerRight="Scale: 4.00"
         />
@@ -118,6 +153,8 @@ function StudentGrid() {
         onDepartmentChange={setDepartment}
         year={year}
         onYearChange={setYear}
+        availableDepartments={availableDepartments}
+        availableYears={availableYears}
       />
 
       <StudentTable
