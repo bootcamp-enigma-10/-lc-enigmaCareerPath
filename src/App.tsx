@@ -12,7 +12,11 @@ function App() {
   const [activeMenu, setActiveMenu] = useState<Menu>("dashboard");
 
   if (!isLoggedIn) {
-    return <AuthLayout><LoginPage onLogin={() => setIsLoggedIn(true)} /></AuthLayout>;
+    return (
+      <AuthLayout>
+        <LoginPage onLogin={() => setIsLoggedIn(true)} />
+      </AuthLayout>
+    );
   }
 
   const pageByMenu: Record<Menu, ReactNode> = {
@@ -21,7 +25,11 @@ function App() {
     careers: <CareersPage />,
   };
 
-  return <AppShell activeMenu={activeMenu} onMenuChange={setActiveMenu}>{pageByMenu[activeMenu]}</AppShell>;
+  return (
+    <AppShell activeMenu={activeMenu} onMenuChange={setActiveMenu}>
+      {pageByMenu[activeMenu]}
+    </AppShell>
+  );
 }
 
 export default App;
