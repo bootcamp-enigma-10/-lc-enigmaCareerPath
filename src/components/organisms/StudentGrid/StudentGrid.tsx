@@ -75,7 +75,7 @@ function StudentGrid() {
   }, [filteredStudents]);
 
   const handleAddStudent = (newStudent: Student) => {
-    setStudentsData([newStudent, ...studentsData]);
+    setStudentsData([...studentsData, newStudent]);
   };
 
   const handleViewDetail = (student: Student) => {

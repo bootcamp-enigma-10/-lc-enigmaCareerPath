@@ -53,7 +53,7 @@ function RegisterForm({
   return (
     <CardAuth>
       <div className="mb-8">
-        <h2 className="text-3xl font-bold text-[#0B1B4D]">Create Account</h2>
+        <h2 className="text-3xl font-bold text-[#0B1B4D]">Sign Up</h2>
         <p className="mt-2 text-sm leading-relaxed text-slate-500">
           Register as a new administrator to manage the ecosystem.
         </p>

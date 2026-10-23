@@ -39,6 +39,7 @@ function StudentEditModal({
     const updatedStudent: Student = {
       ...data,
       gpa: Number(data.gpa),
+      academicYear: `Year ${data.academicYear}`,
     };
 
     onSaveEdit(updatedStudent);
